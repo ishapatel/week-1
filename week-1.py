@@ -30,36 +30,56 @@ cards = range(10)
 class Player:
     
     # create here two local variables to store a unique ID for each player and the player's current 'pot' of money
-    # [FILL IN YOUR VARIABLES HERE]
+    colonel_mustard = 0
+    cm_pot = 0
     
     # in the __init__() function, use the two input variables to initialize the ID and starting pot of each player
     
     def __init__(self, inputID, startingPot):
-        # [CREATE YOUR INITIALIZATIONS HERE]
+        self.colonel_mustard = inputID
+        self.cm_pot = startingPot
         
     # create a function for playing the game. This function should take on input for the card of the dealer.
     # it should then take a random card from 
     
     def play(self, dealerCard):
-        # [CREATE CODE FOR SELECTING A RANDOM CARD]
-        
+        self.dealerCard = dealerCard
+        self.playerCard = random.randint(0,9)
+        #return self.lastCard
+
         # here we should have a conditional that tests the player's card value against the dealer card
         # and returns a statement saying whether the player won or lost the hand
         # before return the statement, make sure to either add or subtract the stake from the player's pot so that
         # the 'pot' variable tracks the player's money
         
-        if playerCard < dealerCard:
+        if self.playerCard < dealerCard:
             # [INCREMENT THE PLAYER'S POT, AND RETURN A MESSAGE]
+            self.cm_pot -= gameStake
+            return 'Sorry, ' + self.colonel_mustard + ', you lose. ' + str(self.playerCard) + ' vs ' + str(self.dealerCard)
+            
         else:
             # [INCREMENT THE PLAYER'S POT, AND RETURN A MESSAGE]
+            self.cm_pot += gameStake
+            return 'Hurray, ' + self.colonel_mustard + '! you win! ' + str(self.playerCard) + ' vs ' + str(self.dealerCard)
         
     # create an accessor function to return the current value of the player's pot
     def returnPot(self):
         # [FILL IN THE RETURN STATEMENT]
+        return self.cm_pot
         
     # create an accessor function to return the player's ID
     def returnID(self):
         # [FILL IN THE RETURN STATEMENT]
+        return self.colonel_mustard
+
+#'''
+play_the_game = Player('Sir', 4)
+
+'''
+play_the_game.play(3)
+print play_the_game.returnID()
+print play_the_game.returnPot()
+'''
 
 
 # Next we will create some functions outside the class definition which will control the flow of the game
@@ -71,6 +91,7 @@ def playHand(players):
     for player in players:
         dealerCard = random.choice(cards)
         #[EXECUTE THE PLAY() FUNCTION FOR EACH PLAYER USING THE DEALER CARD, AND PRINT OUT THE RESULTS]
+        print play_the_game.play(dealerCard)
         
 # Next we will define a function that will check the balances of each player, and print out a message with the
 # player's ID and their balance.
@@ -79,8 +100,8 @@ def checkBalances(players):
     
     for player in players:
         #[PRINT OUT EACH PLAYER'S BALANCE BY USING EACH PLAYER'S ACCESSOR FUNCTIONS]
-  
-  
+        print 'Player ' + str(player.returnID()) + ': ' + str(play_the_game.returnPot())
+
 # Now we are ready to start the game. First we create an empy list to store the collection of players in the game
 
 players = []      
@@ -90,7 +111,7 @@ players = []
 # Hint: you can pass the 'i' iterator of the loop as the ID, and set a constant value for the balance (such as 500).
 
 for i in range(5):
-    players.append(Player(i, 500))
+    players.append(Player(i, 500 + random.randint(-50,50)))
 
 # Once the players are created, we will create a loop to run the game a certain amount of times. Each step of the loop
 # should start with a print statement announcing the start of the game, and then call the playHand function, passing as 
@@ -106,6 +127,3 @@ for i in range(10):
 print ''
 print 'game results:'
 checkBalances(players)
-
-
-#test
