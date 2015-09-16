@@ -55,12 +55,12 @@ class Player:
         if self.playerCard < dealerCard:
             # [INCREMENT THE PLAYER'S POT, AND RETURN A MESSAGE]
             self.cm_pot -= gameStake
-            return 'Sorry, ' + self.colonel_mustard + ', you lose. ' + str(self.playerCard) + ' vs ' + str(self.dealerCard)
+            return 'Sorry Player, ' + str(self.colonel_mustard) + ', you lose. ' + str(self.playerCard) + ' vs ' + str(self.dealerCard)
             
         else:
             # [INCREMENT THE PLAYER'S POT, AND RETURN A MESSAGE]
             self.cm_pot += gameStake
-            return 'Hurray, ' + self.colonel_mustard + '! you win! ' + str(self.playerCard) + ' vs ' + str(self.dealerCard)
+            return 'Hurray Player, ' + str(self.colonel_mustard) + '! you win! ' + str(self.playerCard) + ' vs ' + str(self.dealerCard)
         
     # create an accessor function to return the current value of the player's pot
     def returnPot(self):
@@ -73,7 +73,7 @@ class Player:
         return self.colonel_mustard
 
 #'''
-play_the_game = Player('Sir', 4)
+play_the_game = Player#('Sir', 4)
 
 '''
 play_the_game.play(3)
@@ -91,7 +91,7 @@ def playHand(players):
     for player in players:
         dealerCard = random.choice(cards)
         #[EXECUTE THE PLAY() FUNCTION FOR EACH PLAYER USING THE DEALER CARD, AND PRINT OUT THE RESULTS]
-        print play_the_game.play(dealerCard)
+        print player.play(dealerCard)
         
 # Next we will define a function that will check the balances of each player, and print out a message with the
 # player's ID and their balance.
@@ -100,7 +100,7 @@ def checkBalances(players):
     
     for player in players:
         #[PRINT OUT EACH PLAYER'S BALANCE BY USING EACH PLAYER'S ACCESSOR FUNCTIONS]
-        print 'Player ' + str(player.returnID()) + ': ' + str(play_the_game.returnPot())
+        print 'Player ' + str(player.returnID()) + ': ' + str(play_the_game.returnPot(player))
 
 # Now we are ready to start the game. First we create an empy list to store the collection of players in the game
 
@@ -127,3 +127,5 @@ for i in range(10):
 print ''
 print 'game results:'
 checkBalances(players)
+
+#test
